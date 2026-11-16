@@ -64,12 +64,71 @@ h2{font-size:23px;letter-spacing:-.025em;margin:0;font-weight:900}
 @media(max-width:620px){.shell{padding:0 17px}.topbar{height:65px}.brand-mark{width:38px;height:38px}.brand-name{font-size:13px}.top-pill{font-size:9px;padding:7px 9px}.hero{padding:42px 0 34px}.hero-grid{grid-template-columns:1fr}.hero-mark{display:none}h1{font-size:37px}.hero-copy{font-size:13px}.section-head{align-items:start;flex-direction:column}.grid{grid-template-columns:1fr;gap:13px}.card{min-height:250px;padding:20px}.card h3{margin-top:20px}.footer-inner{flex-direction:column}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
+
+<style id="morarepublic-brand-theme">
+:root{
+ --bg:#f4f6fb;--panel:#ffffff;--panel2:#eef1f8;--line:#d8deea;
+ --gold:#f2c94c;--gold2:#dcae2e;--red:#5946b8;--muted:#65718a;--white:#17244b;
+}
+body{
+ background:
+ radial-gradient(ellipse at 12% 0%,rgba(91,75,190,.14),transparent 36%),
+ radial-gradient(ellipse at 90% 28%,rgba(242,201,76,.18),transparent 30%),
+ linear-gradient(145deg,#f7f8fc,#edf1f8 58%,#f9fafc);
+ color:#17244b;
+}
+.topbar{background:rgba(255,255,255,.92);border-bottom:1px solid #d9deeb}
+.brand{gap:14px}
+.brand-logo{display:block;width:190px;max-width:44vw;height:48px;object-fit:contain;object-position:left center}
+.brand-name{color:#172d87;letter-spacing:.08em}
+.brand-sub{color:#6552b8}
+.top-pill{color:#33458e;border-color:#d8dff1;background:#f3f5fc}
+.pulse{background:#27ae79;box-shadow:0 0 10px #27ae7966}
+.hero{background:linear-gradient(112deg,#101f67 0%,#283b9b 48%,#4d3b9b 100%);border-bottom:4px solid #f2c94c}
+.hero:before{border-color:#ffffff22;box-shadow:0 0 0 32px #ffffff08,0 0 0 72px #ffffff05}
+.hero:after{background:linear-gradient(90deg,transparent,#f2c94c,#ffffff,transparent)}
+.eyebrow{color:#ffe28a}
+.eyebrow:before{background:#f2c94c;box-shadow:0 0 10px #f2c94c88}
+h1{color:#fff}
+h1 span{background:linear-gradient(100deg,#fff6cc 0%,#f2c94c 48%,#fff0a8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{color:#e0e6ff}
+.hero-mark{border-color:#ffffff55;background:linear-gradient(145deg,#ffffff20,#ffffff08);box-shadow:0 18px 55px #06104455,inset 0 1px #ffffff40}
+.hero-mark:before{color:#ffe28a;text-shadow:0 4px 20px #f2c94c66}
+.hero-mark:after{border-color:#ffffff45}
+.section-kicker{color:#6654b8}
+.count{color:#33458e;border-color:#d9def0;background:#fff}
+.card{
+ background:linear-gradient(145deg,#ffffff 0%,#f5f7fc 72%,#eef1f9 100%);
+ border-color:#dce2ef;box-shadow:0 14px 35px #1a2a5712;
+}
+.card:before{opacity:.38}
+.card:after{opacity:.45}
+.card h3{color:#17244b}
+.card p{color:#65718a}
+.card-index{color:#8a93a8}
+.tag{color:#475575;border-color:#dce2ef;background:#ffffffb8}
+.card.sa{--accent:#e0b52e;--accent-soft:#f5e5a7}
+.card.cluster{--accent:#6354bf;--accent-soft:#d9d3ff}
+.card.wo{--accent:#3156b8;--accent-soft:#cbd8ff}
+.card-icon{background:color-mix(in srgb,var(--accent) 13%,#fff);border-color:color-mix(in srgb,var(--accent) 40%,#fff)}
+.card-action{color:var(--accent)}
+.footer{border-top:1px solid #dce2ef;color:#7b8499}
+.footer strong{color:#5143a5}
+@media(max-width:620px){.brand-logo{width:158px;height:42px;max-width:48vw}}
+</style>
+
+<style id="hero-rocket-update">
+.hero-mark:before{content:none!important}
+.hero-mark{display:grid;place-items:center}
+.hero-rocket{width:88%;height:88%;filter:drop-shadow(0 9px 14px #06104488);overflow:visible}
+@media(max-width:900px){.hero-rocket{width:90%;height:90%}}
+</style>
 </head>
 <body>
 <nav class="topbar">
   <div class="shell topbar-inner">
     <a class="brand" href="./" aria-label="Portal MoraRepublic">
-      <span class="brand-mark">MR</span>
+      <img class="brand-logo" src="https://www.morarepublic.co.id/_nuxt/logo_morarepublic.CUMDR9Ot.png" alt="Logo resmi MoraRepublic">
       <span><span class="brand-name">MORAREPUBLIC</span><span class="brand-sub">SURABAYA 2 · OPERATIONS</span></span>
     </a>
     <span class="top-pill"><i class="pulse"></i> PORTAL DASHBOARD</span>
@@ -82,7 +141,36 @@ h2{font-size:23px;letter-spacing:-.025em;margin:0;font-weight:900}
       <h1>Portal Monitoring<br><span>&amp; Performance</span></h1>
       <p class="hero-copy">Pusat kendali dashboard operasional. Akses monitoring sales, wilayah, dan work order dari satu tempat.</p>
     </div>
-    <div class="hero-mark" aria-hidden="true"></div>
+    <div class="hero-mark" aria-hidden="true">
+      <svg class="hero-rocket" viewBox="0 0 120 120" role="img" aria-label="Roket MoraRepublic">
+        <defs>
+          <linearGradient id="rocketBody" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff3bd"/>
+            <stop offset=".48" stop-color="#f2c94c"/>
+            <stop offset="1" stop-color="#d99a32"/>
+          </linearGradient>
+          <linearGradient id="rocketGlass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8de5ff"/>
+            <stop offset="1" stop-color="#2678d8"/>
+          </linearGradient>
+          <linearGradient id="rocketFlame" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff4a8"/>
+            <stop offset=".55" stop-color="#ff9b35"/>
+            <stop offset="1" stop-color="#ef3d45"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(60 57) rotate(42) translate(-60 -57)">
+          <path d="M60 8 C78 22 84 43 79 68 L60 88 L41 68 C36 43 42 22 60 8Z" fill="url(#rocketBody)" stroke="#fff0b0" stroke-width="2.5"/>
+          <path d="M60 8 C70 20 74 32 75 44 L45 44 C46 31 50 19 60 8Z" fill="#fff7d8" opacity=".38"/>
+          <circle cx="60" cy="49" r="10.5" fill="#173a85" stroke="#fff2bc" stroke-width="3"/>
+          <circle cx="60" cy="49" r="6.5" fill="url(#rocketGlass)"/>
+          <path d="M42 58 L23 77 L43 76 L51 67Z" fill="#e63d50" stroke="#ffcf71" stroke-width="2"/>
+          <path d="M78 58 L97 77 L77 76 L69 67Z" fill="#e63d50" stroke="#ffcf71" stroke-width="2"/>
+          <path d="M52 81 L60 111 L68 81 L60 88Z" fill="url(#rocketFlame)"/>
+          <path d="M57 84 L60 101 L63 84" fill="#fff4b0"/>
+        </g>
+      </svg>
+    </div>
   </div>
 </header>
 <main class="shell">
