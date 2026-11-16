@@ -1,74 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal MoraRepublic Surabaya 2</title>
+<meta name="theme-color" content="#090a0e">
+<title>Portal MoraRepublic | Surabaya 2</title>
 <style>
-:root{--bg:#101216;--panel:#191d23;--line:#343941;--muted:#a9adb5;--text:#f4f1e9;--gold:#e5b84f;--red:#b9272f}
+:root{--bg:#090a0e;--panel:#151820;--panel2:#1c2029;--line:#343944;--gold:#f0c66b;--gold2:#a9782d;--red:#d5263d;--muted:#a9afbb;--white:#f7f4ed}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#4b1719 0,transparent 42%),linear-gradient(160deg,#101216,#171b21 55%,#111318);color:var(--text);font:15px system-ui,Arial}
-header{padding:35px 22px;background:linear-gradient(112deg,#090b0e,#251014 55%,#401519);border-bottom:3px solid var(--red)}
-.wrap{max-width:1120px;margin:auto}
-.brand{display:flex;align-items:center;gap:16px}
-.logo{width:60px;height:60px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#f0ca6a,#a96e1d);color:#17120b;border:2px solid #ffe3a0;font-size:28px;font-weight:1000}
-.eyebrow{font-size:10px;font-weight:900;letter-spacing:2.5px;color:#efc66b;margin-bottom:6px}
-h1{font-size:clamp(23px,4vw,36px);margin:0;font-weight:900}
-.sub{color:#d5d0c8;font-size:13px;margin:9px 0 0}
-main{max-width:1120px;margin:auto;padding:30px 22px 56px}
-.intro{margin-bottom:22px}
-.intro h2{font-size:18px;margin:0 0 7px}
-.intro p{color:var(--muted);font-size:13px;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.tile{display:flex;flex-direction:column;min-height:230px;padding:22px;text-decoration:none;color:var(--text);background:linear-gradient(150deg,#20252d,#171b21);border:1px solid #373d47;border-radius:19px;box-shadow:0 14px 34px #0005;transition:.2s}
-.tile:hover{transform:translateY(-4px);border-color:#b88d3c}
-.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#442026;color:#f5d27a;font-size:24px;margin-bottom:18px}
-.tile h3{font-size:17px;margin:0 0 8px}
-.tile p{font-size:12px;line-height:1.65;color:#b6bac2;margin:0 0 22px}
-.open{margin-top:auto;color:#efc66b;font-size:12px;font-weight:850}
-footer{max-width:1120px;margin:auto;padding:0 22px 26px;color:#777f8c;font-size:11px}
-@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){header{padding:26px 17px}.logo{width:50px;height:50px}main{padding:24px 14px 40px}.grid{grid-template-columns:1fr}.tile{min-height:195px}}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,#5b1421 0,transparent 35%),radial-gradient(ellipse at 90% 38%,#302018 0,transparent 28%),linear-gradient(145deg,#090a0e,#11151c 58%,#090a0e);color:var(--white);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+a{color:inherit}
+.shell{max-width:1320px;margin:auto;padding:0 28px}
+.topbar{height:76px;border-bottom:1px solid #ffffff14;background:#08090dcc;backdrop-filter:blur(14px);display:flex;align-items:center}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;width:100%}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+.brand-mark{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#f8d986,#a86d20);color:#211407;font-size:18px;font-weight:1000;letter-spacing:-2px;box-shadow:0 5px 20px #d99c3735,inset 0 1px #fff8;border:1px solid #ffe7a5}
+.brand-name{font-size:15px;font-weight:950;letter-spacing:.12em}
+.brand-sub{font-size:9px;letter-spacing:.2em;color:#d6b66e;font-weight:800;margin-top:1px}
+.top-pill{display:flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid #d9ad573d;border-radius:999px;color:#ead7a8;font-size:11px;font-weight:800;background:#21151b}
+.pulse{width:7px;height:7px;background:#48d18a;border-radius:50%;box-shadow:0 0 10px #48d18a}
+.hero{position:relative;padding:62px 0 46px;overflow:hidden;border-bottom:1px solid #d5263d66}
+.hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-80px;top:-290px;border:1px solid #e0b85b25;box-shadow:0 0 0 32px #e0b85b08,0 0 0 72px #e0b85b05}
+.hero:after{content:"";position:absolute;right:7%;bottom:0;width:240px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--red),transparent);filter:drop-shadow(0 0 9px #e43c4d)}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--gold);font-size:10px;letter-spacing:.28em;font-weight:950;text-transform:uppercase;margin-bottom:15px}
+.eyebrow:before{content:"";width:27px;height:2px;background:var(--red);box-shadow:0 0 10px #e52a45}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.02;letter-spacing:-.045em;margin:0;max-width:820px;font-weight:950}
+h1 span{background:linear-gradient(100deg,#fff3c9 0%,#f0c66b 44%,#d99a39 78%,#fff0bf 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{font-size:15px;color:#c0c2c9;max-width:620px;margin:17px 0 0}
+.hero-mark{width:164px;height:164px;border-radius:32px;display:grid;place-items:center;border:1px solid #f0c66b55;background:linear-gradient(145deg,#3d2022aa,#15171eaa);box-shadow:0 18px 55px #0008,inset 0 1px #ffffff20;transform:rotate(3deg);position:relative}
+.hero-mark:before{content:"MR";font-size:53px;font-weight:1000;letter-spacing:-.1em;padding-right:8px;color:#f3d17e;text-shadow:0 4px 20px #d18a2b55}
+.hero-mark:after{content:"";position:absolute;inset:10px;border:1px solid #f0c66b30;border-radius:25px}
+main{padding:38px 0 58px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:21px}
+.section-kicker{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#d5b46a;font-weight:900;margin-bottom:6px}
+h2{font-size:23px;letter-spacing:-.025em;margin:0;font-weight:900}
+.section-desc{font-size:13px;color:var(--muted);margin:6px 0 0}
+.count{font-size:11px;color:#e7d7b4;border:1px solid #d9ad573d;background:#21171a;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{--accent:var(--gold);--accent-soft:#5a411e;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;min-height:290px;padding:23px 23px 21px;border:1px solid #ffffff18;border-radius:22px;background:linear-gradient(145deg,#20242d 0%,#151820 70%,#11141a 100%);text-decoration:none;box-shadow:0 18px 40px #0005;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.card:before{content:"";position:absolute;z-index:-1;width:230px;height:230px;border-radius:50%;right:-125px;top:-130px;background:radial-gradient(circle,var(--accent-soft),transparent 68%);opacity:.65}
+.card:after{content:"";position:absolute;z-index:-1;right:-55px;bottom:-95px;width:210px;height:210px;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:50%;box-shadow:0 0 0 24px color-mix(in srgb,var(--accent) 5%,transparent),0 0 0 50px color-mix(in srgb,var(--accent) 3%,transparent)}
+.card:hover{transform:translateY(-7px);border-color:color-mix(in srgb,var(--accent) 65%,white 5%);box-shadow:0 25px 55px #0009,0 0 24px color-mix(in srgb,var(--accent) 12%,transparent)}
+.card.sa{--accent:#f0c66b;--accent-soft:#66451a}
+.card.cluster{--accent:#6cc9db;--accent-soft:#164d60}
+.card.wo{--accent:#f07883;--accent-soft:#641d2a}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card-icon{width:55px;height:55px;border-radius:17px;display:grid;place-items:center;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,#171820);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);box-shadow:inset 0 1px #ffffff12}
+.card-icon svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card-index{font-size:10px;letter-spacing:.14em;color:#777f8b;font-weight:900}
+.card h3{font-size:21px;margin:24px 0 8px;font-weight:900;letter-spacing:-.025em}
+.card p{font-size:13px;color:#b6bbc5;line-height:1.7;margin:0 0 22px;max-width:330px}
+.card-meta{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 22px}
+.tag{font-size:10px;color:#d9dce2;border:1px solid #ffffff18;background:#ffffff08;border-radius:999px;padding:5px 9px}
+.card-action{margin-top:auto;display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-size:12px;font-weight:950;letter-spacing:.06em}
+.arrow{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);font-size:17px;transition:transform .2s}
+.card:hover .arrow{transform:translateX(4px);background:color-mix(in srgb,var(--accent) 13%,transparent)}
+.footer{border-top:1px solid #ffffff12;padding:20px 0 27px;color:#7f8793;font-size:11px}
+.footer-inner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.footer strong{color:#d8bd80}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-mark{width:130px;height:130px}.hero-mark:before{font-size:44px}}
+@media(max-width:620px){.shell{padding:0 17px}.topbar{height:65px}.brand-mark{width:38px;height:38px}.brand-name{font-size:13px}.top-pill{font-size:9px;padding:7px 9px}.hero{padding:42px 0 34px}.hero-grid{grid-template-columns:1fr}.hero-mark{display:none}h1{font-size:37px}.hero-copy{font-size:13px}.section-head{align-items:start;flex-direction:column}.grid{grid-template-columns:1fr;gap:13px}.card{min-height:250px;padding:20px}.card h3{margin-top:20px}.footer-inner{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header>
-<div class="wrap brand">
-<div class="logo">M</div>
-<div>
-<div class="eyebrow">MORAREPUBLIC · SURABAYA 2</div>
-<h1>Portal Monitoring &amp; Performance</h1>
-<p class="sub">Pusat akses dashboard operasional MoraRepublic Surabaya 2</p>
-</div>
-</div>
+<nav class="topbar">
+  <div class="shell topbar-inner">
+    <a class="brand" href="./" aria-label="Portal MoraRepublic">
+      <span class="brand-mark">MR</span>
+      <span><span class="brand-name">MORAREPUBLIC</span><span class="brand-sub">SURABAYA 2 · OPERATIONS</span></span>
+    </a>
+    <span class="top-pill"><i class="pulse"></i> PORTAL DASHBOARD</span>
+  </div>
+</nav>
+<header class="hero">
+  <div class="shell hero-grid">
+    <div>
+      <div class="eyebrow">MoraRepublic · Surabaya 2</div>
+      <h1>Portal Monitoring<br><span>&amp; Performance</span></h1>
+      <p class="hero-copy">Pusat kendali dashboard operasional. Akses monitoring sales, wilayah, dan work order dari satu tempat.</p>
+    </div>
+    <div class="hero-mark" aria-hidden="true"></div>
+  </div>
 </header>
-<main>
-<section class="intro">
-<h2>Pilih Dashboard</h2>
-<p>Seluruh dashboard operasional dapat dibuka melalui satu halaman portal.</p>
-</section>
-<section class="grid">
-<a class="tile" href="./dashboard/">
-<div class="icon">▥</div>
-<h3>Monitoring SA</h3>
-<p>Monitoring dan analisis performa SA serta informasi pencapaian.</p>
-<span class="open">BUKA DASHBOARD →</span>
-</a>
-<a class="tile" href="./cluster-tanggung-jawab/">
-<div class="icon">⌖</div>
-<h3>Cluster Tanggung Jawab</h3>
-<p>Monitoring cluster, ASM, AE, target visit, dan pencapaian area.</p>
-<span class="open">BUKA DASHBOARD →</span>
-</a>
-<a class="tile" href="https://bennyhad1205.github.io/monitoring-wo/">
-<div class="icon">▤</div>
-<h3>Monitoring WO</h3>
-<p>Monitoring Work Order, KPI status WO, filter BSM dan ASM, serta detail data.</p>
-<span class="open">BUKA DASHBOARD →</span>
-</a>
-</section>
+<main class="shell">
+  <div class="section-head">
+    <div><div class="section-kicker">Control center</div><h2>Pilih Dashboard</h2><p class="section-desc">Pilih modul yang ingin Anda buka untuk melihat data dan aktivitas operasional.</p></div>
+    <span class="count">03 MODUL TERSEDIA</span>
+  </div>
+  <section class="grid" aria-label="Daftar dashboard">
+    <a class="card sa" href="./dashboard/">
+      <div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h17M8 16v-5m4 5V7m4 9v-8m4 8v-4"/></svg></span><span class="card-index">MODULE 01</span></div>
+      <h3>Monitoring SA</h3>
+      <p>Monitoring dan analisis performa Sales Agent, pencapaian, serta ringkasan aktivitas operasional.</p>
+      <div class="card-meta"><span class="tag">Performa SA</span><span class="tag">SA Unpaid</span></div>
+      <div class="card-action"><span>BUKA DASHBOARD</span><span class="arrow">→</span></div>
+    </a>
+    <a class="card cluster" href="./cluster-tanggung-jawab/">
+      <div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/><path d="M3 21h18"/></svg></span><span class="card-index">MODULE 02</span></div>
+      <h3>Cluster Tanggung Jawab</h3>
+      <p>Monitoring cluster, pembagian area ASM dan AE, target visit, serta pencapaian wilayah.</p>
+      <div class="card-meta"><span class="tag">Cluster</span><span class="tag">ASM &amp; AE</span><span class="tag">Visit</span></div>
+      <div class="card-action"><span>BUKA DASHBOARD</span><span class="arrow">→</span></div>
+    </a>
+    <a class="card wo" href="https://bennyhad1205.github.io/monitoring-wo/">
+      <div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H5V3h2Z"/><path d="M14 3v5h5M8 12h8M8 16h8"/></svg></span><span class="card-index">MODULE 03</span></div>
+      <h3>Monitoring WO</h3>
+      <p>Monitoring Work Order, KPI status WO, filter BSM dan ASM, serta penelusuran detail data.</p>
+      <div class="card-meta"><span class="tag">Work Order</span><span class="tag">Status &amp; KPI</span><span class="tag">Detail WO</span></div>
+      <div class="card-action"><span>BUKA DASHBOARD</span><span class="arrow">→</span></div>
+    </a>
+  </section>
 </main>
-<footer>© MoraRepublic Surabaya 2 · Portal Dashboard</footer>
+<footer class="footer"><div class="shell footer-inner"><span>© MoraRepublic Surabaya 2 · Portal Monitoring &amp; Performance</span><strong>ONE PORTAL · THREE MODULES</strong></div></footer>
 </body>
 </html>
