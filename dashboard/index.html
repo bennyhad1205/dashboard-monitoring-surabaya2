@@ -861,7 +861,7 @@ setInterval(updateLiveDateTime,1000);
  });
 
  // GitHub editor: token hanya digunakan sementara di halaman ini.
- const ghRepo="bennyhad1205/monitoring-sa-unpaid-sby-2",ghBranch="main",ghPath="index.html";
+ const ghRepo="bennyhad1205/dashboard-monitoring-surabaya2",ghBranch="main",ghPath="index.html";
  const ghStatus=$id("githubEditorStatus"),ghToken=$id("githubToken"),ghEditor=$id("githubHtmlEditor");
  function ghSay(message,bad=false){ghStatus.textContent=message;ghStatus.style.color=bad?"#ff929b":"#b7c1cc";}
  function ghHeaders(token){return {"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"};}
