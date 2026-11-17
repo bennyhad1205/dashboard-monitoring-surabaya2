@@ -108,6 +108,7 @@ tr:hover td{background:#25151b}
   </tr></thead><tbody id="zonkDetails"></tbody></table></div>
   <div class="zonk-actions">
    <button type="button" class="zonk-wa" id="zonkSendWA">Kirim Report Detail ke WhatsApp</button>
+   <button type="button" class="zonk-close" id="zonkExportExcel">Export Detail ke Excel</button>
    <button type="button" class="zonk-close" id="zonkClose">Tutup</button>
   </div>
  </div>
@@ -249,6 +250,42 @@ function sendZonkReportWA(){
  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
 }
 
+
+function exportZonkExcel(){
+ const data=filtered().filter(zonk).sort((a,b)=>
+  label(a.ASM).localeCompare(label(b.ASM),'id') ||
+  label(a.AE).localeCompare(label(b.AE),'id') ||
+  text(a.Clustername).localeCompare(text(b.Clustername),'id'));
+ if(!data.length){alert('Tidak ada cluster ZONK untuk diekspor pada filter saat ini.');return;}
+ const columns=[
+  ['No',(_,i)=>i+1],
+  ['Area',r=>r['Area Name']],['Kota',r=>r.City],['Kecamatan',r=>r.KECAMATAN],
+  ['ASM',r=>r.ASM],['AE',r=>r.AE],['Cluster ID',r=>r['Cluster Id']],
+  ['Nama Cluster',r=>r.Clustername],['RFS',r=>r['RFS Classification']],
+  ['HP',r=>r['HP Total']],['Subs',r=>r['Total Subs']],['Penetrasi (%)',r=>r['Pen Rate %']],
+  ['Total SA',r=>r['Total SA']],['Kategori SA',r=>r['JUMLAH SA']],
+  ['Visit MTD',r=>r['Total Visit MTD']],['Total Visit',r=>r['Total Visit']],
+  ['Status Visit',r=>r['STATUS VISIT']],['Status Target',r=>r['STATUS TARGET']]
+ ];
+ const escExcel=v=>String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+ const rows=data.map((r,i)=>'<tr>'+columns.map((c,j)=>{
+  const value=c[1](r,i);
+  // Keep IDs and labels as text; numeric KPI columns are exported as numbers where possible.
+  const numeric=[9,10,11,12,14,15].includes(j);
+  const n=Number(String(value??'').replace(',','.'));
+  return `<td${numeric&&String(value??'').trim()!==''&&Number.isFinite(n)?' x:num="'+n+'"':''}>${escExcel(value??'')}</td>`;
+ }).join('')+'</tr>').join('');
+ const date=new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric',timeZone:'Asia/Jakarta'});
+ const asm=$('asm').value||'Semua ASM',ae=$('ae').value||'Semua AE';
+ const table=`<table><caption>DETAIL CLUSTER ZONK / 0 SA</caption><tr><th colspan="${columns.length}">Tanggal export: ${escExcel(date)} | ASM: ${escExcel(asm)} | AE: ${escExcel(ae)} | Total: ${data.length} cluster</th></tr><tr>${columns.map(c=>'<th>'+escExcel(c[0])+'</th>').join('')}</tr>${rows}</table>`;
+ const workbook=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><style>body{font-family:Arial}table{border-collapse:collapse}caption{font-size:16pt;font-weight:bold;padding:10px}th{background:#7b1425;color:#fff;font-weight:bold}th,td{border:1px solid #999;padding:6px}tr:nth-child(even){background:#f3f3f3}</style></head><body>${table}</body></html>`;
+ const blob=new Blob(['\ufeff',workbook],{type:'application/vnd.ms-excel;charset=utf-8'});
+ const url=URL.createObjectURL(blob),link=document.createElement('a');
+ link.href=url;link.download=`Detail_Cluster_ZONK_${new Date().toISOString().slice(0,10)}.xls`;
+ document.body.appendChild(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+
 function exportCSV(){let a=filtered();if(!a.length)return;let cols=Object.keys(a[0]),q=v=>'"'+text(v).replace(/"/g,'""')+'"',csv=[cols.map(q).join(','),...a.map(r=>cols.map(k=>q(r[k])).join(','))].join('\r\n');let blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='cluster-tanggung-jawab-filtered.csv';link.click();URL.revokeObjectURL(url)}
 function exportWhatsApp(){
  const base=filtered();
@@ -340,6 +377,7 @@ $('zonkCard').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.
 $('zonkClose').addEventListener('click',()=>$('zonkModal').classList.remove('open'));
 $('zonkCloseTop').addEventListener('click',()=>$('zonkModal').classList.remove('open'));
 $('zonkSendWA').addEventListener('click',sendZonkReportWA);
+$('zonkExportExcel').addEventListener('click',exportZonkExcel);
 $('zonkModal').addEventListener('click',e=>{if(e.target===$('zonkModal'))$('zonkModal').classList.remove('open')});
 
 filters.forEach(([id])=>$(id).addEventListener('change',()=>{refreshOptions();draw()}));$('detailAsmFilter').addEventListener('change',()=>{const asm=$('detailAsmFilter').value;const a=filtered().filter(r=>!asm||label(r.ASM)===asm);const ae=$('detailAeFilter'),old=ae.value,opts=[...new Set(a.map(r=>label(r.AE)))].sort((x,y)=>x.localeCompare(y,'id'));ae.innerHTML='<option value="">Semua AE</option>'+opts.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');if(opts.includes(old))ae.value=old;else ae.value='';draw()});$('detailAeFilter').addEventListener('change',draw);$('reload').addEventListener('click',load);$('export').addEventListener('click',exportCSV);$('exportWA').addEventListener('click',exportWhatsApp);
