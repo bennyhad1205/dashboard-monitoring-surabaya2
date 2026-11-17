@@ -387,33 +387,33 @@ tbody tr:hover{background:#202b36!important}
 <div class="perf-head"><div><div class="perf-title">Performa Sales Agent</div><div class="perf-sub" id="perfPeriod">Bulan berjalan • dibandingkan tanggal kalender yang sama bulan lalu</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="exportPerfWA" type="button" title="Salin laporan untuk WhatsApp" aria-label="Export laporan ke WhatsApp" style="display:inline-flex;align-items:center;justify-content:center;gap:0;min-width:44px;width:44px;height:40px;padding:8px;border-color:#25D366;color:#25D366;background:#10271c"><svg viewBox="0 0 32 32" width="25" height="25" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="15" fill="#25D366"/><path fill="#FFFFFF" d="M16.02 5.2a10.7 10.7 0 0 0-9.18 16.2l-1.1 4.02 4.12-1.08a10.7 10.7 0 1 0 6.16-19.14Zm0 19.43c-1.67 0-3.31-.45-4.75-1.31l-.34-.2-3.19.84.86-3.11-.22-.35a8.75 8.75 0 1 1 7.64 4.13Zm4.81-6.56c-.26-.13-1.54-.76-1.77-.84-.23-.09-.41-.13-.58.13-.17.26-.67.84-.82 1.02-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.07-1.27-.76-.68-1.28-1.51-1.43-1.77-.15-.26-.02-.4.12-.54.12-.12.26-.3.38-.45.13-.15.17-.26.26-.43.09-.17.04-.33-.02-.45-.07-.13-.59-1.4-.8-1.92-.21-.5-.43-.43-.59-.44h-.5c-.17 0-.45.07-.68.33-.23.26-.9.89-.9 2.16s.92 2.51 1.05 2.68c.13.17 1.81 2.76 4.38 3.86.61.26 1.09.42 1.45.53.61.19 1.16.17 1.6.1.49-.08 1.54-.63 1.76-1.24.22-.61.22-1.13.15-1.24-.07-.11-.23-.17-.49-.3Z"/></svg></button><button class="secondary" id="perfRefresh" type="button">↻ Refresh Performa</button></div></div>
  <div class="error" id="perfError"></div>
  <section class="perf-kpis">
-  <div class="card perf-kpi"><div class="label">TOTAL AKTIVASI BULAN INI</div><div class="num" id="pTotal">—</div><div class="perf-sub">Semua status layanan</div></div>
-  <div class="card perf-kpi"><div class="label">TOTAL AKTIVASI BULAN LALU</div><div class="num" id="pPrev">—</div><div class="perf-sub">Sampai tanggal pilihan</div><div class="field" style="margin-top:10px"><label for="perfCompareDate">PILIH TANGGAL BATAS PERBANDINGAN</label><input id="perfCompareDate" type="date" aria-label="Pilih tanggal batas perbandingan bulan lalu" style="width:100%;max-width:220px"></div></div>
-  <div class="card perf-kpi"><div class="label">SELISIH PENJUALAN</div><div class="num" id="pDiff">—</div><div class="perf-sub">Bulan ini dikurangi bulan lalu</div></div>
-  <div class="card perf-kpi perf-growth-projection"><div class="label">PERTUMBUHAN</div><div class="growth-topline"><div class="growth-value"><div class="num" id="pRunrate">—</div><div class="perf-sub">Proyeksi akhir bulan ini</div></div><div class="growth-value growth-previous"><div class="num" id="pPrevMonthTotal">—</div><div class="perf-sub">Total SA bulan lalu</div></div></div><div class="growth-metrics"><div class="growth-metric"><strong id="pGrowth">—</strong><span>Pertumbuhan aktual</span></div><div class="growth-metric"><strong id="pProjectedGrowth">—</strong><span>Pertumbuhan proyeksi</span></div></div><div class="perf-sub" id="pRunrateBasis">Berdasarkan rata-rata aktivasi harian</div></div>
- </section>
+   <div class="card perf-kpi"><div class="label">TOTAL SA BULAN INI</div><div class="num" id="pTotal">—</div><div class="perf-sub">Jumlah seluruh aktivasi bulan berjalan</div></div>
+   <div class="card perf-kpi"><div class="label">TOTAL TARGET AE</div><div class="num" id="pTargetTotal">—</div><div class="perf-sub" id="pTargetBasis">Target 15 SA untuk setiap AE</div></div>
+   <div class="card perf-kpi"><div class="label">KEKURANGAN MENUJU TARGET</div><div class="num" id="pTargetGap">—</div><div class="perf-sub">Akumulasi SA yang masih dibutuhkan</div></div>
+   <div class="card perf-kpi"><div class="label">PROYEKSI AKHIR BULAN</div><div class="num" id="pRunrate">—</div><div class="perf-sub" id="pRunrateBasis">Proyeksi berdasarkan rata-rata harian</div></div>
+  </section>
  <section class="card perf-filters">
   <div class="field"><label>FILTER ASM</label><select id="perfAsm"><option value="">Semua ASM</option></select></div>
   <div class="field"><label>FILTER AE / SALES</label><select id="perfAe"><option value="">Semua AE</option></select></div>
   <div class="field"><label>&nbsp;</label><button class="secondary" id="resetPerfFilters" type="button" style="width:100%">↺ Reset Filter</button></div>
  </section>
- <section class="perf-layout">
-  <div class="card panel"><h3>Ranking Penjualan AE</h3><div class="ranking" id="perfRanking"><div class="empty">Menunggu data…</div></div></div>
-  <div class="card panel"><h3>Ranking Performa ASM</h3><div class="ranking" id="perfAsmRanking"><div class="empty">Menunggu data…</div></div></div>
- </section>
+ <section class="card panel" style="margin-bottom:16px">
+   <h3>Standar Pencapaian AE</h3>
+   <div class="perf-sub" style="font-size:13px;line-height:1.7">Target setiap AE adalah <b style="color:#e7bd62">15 SA per bulan</b>. Pemantauan difokuskan pada jumlah SA, persentase pencapaian, dan sisa SA menuju target. Revenue tidak digunakan sebagai indikator penilaian performa.</div>
+  </section>
  <section class="card tablecard" style="margin-bottom:16px">
   <div class="tablehead"><div><h3>Perbandingan SA per ASM</h3><div class="count" id="perfAsmCompareCount">—</div></div><div class="count">Bulan berjalan dibanding tanggal kalender yang sama bulan lalu</div></div>
   <div class="tablewrap perf-table"><table style="min-width:760px"><thead><tr><th>No</th><th>Nama ASM</th><th>SA Bulan Ini</th><th>SA Bulan Lalu</th><th>Selisih</th><th>Growth</th></tr></thead><tbody id="perfAsmCompareBody"><tr><td colspan="6" class="empty">Mengambil data…</td></tr></tbody></table></div>
  </section>
  <section class="card tablecard" style="margin-bottom:16px">
-  <div class="tablehead"><div><h3>Perbandingan SA per AE</h3><div class="count" id="perfCompareCount">—</div></div><div class="field perf-compare-filter"><label for="perfCompareAsm">FILTER NAMA ASM</label><select id="perfCompareAsm"><option value="">Semua ASM</option></select></div></div>
+  <div class="tablehead"><div><h3>Pencapaian Target SA per AE</h3><div class="count" id="perfCompareCount">—</div></div><div class="field perf-compare-filter"><label for="perfCompareAsm">FILTER NAMA ASM</label><select id="perfCompareAsm"><option value="">Semua ASM</option></select></div></div>
   <div class="tablewrap perf-table"><table style="min-width:760px"><thead><tr><th>No</th><th>Nama ASM</th><th>Nama AE</th><th>SA Bulan Ini</th><th>SA Bulan Lalu</th><th>Selisih</th><th>Growth</th></tr></thead><tbody id="perfCompareBody"><tr><td colspan="7" class="empty">Mengambil data…</td></tr></tbody></table></div>
  </section>
  <section class="card tablecard">
   <div class="tablehead"><div><h3>Detail Aktivasi Bulan Berjalan</h3><div class="count" id="perfDetailCount">—</div></div><div class="count">Service Status hanya informasi, bukan filter penjualan</div></div>
-  <div class="tablewrap perf-table"><table><thead><tr><th>No</th><th>Tanggal Aktivasi</th><th>ASM</th><th>AE / Sales Agent</th><th>Subscription ID</th><th>Service Status</th><th>Order Status</th><th>Plan</th><th>Cluster</th><th>Revenue</th></tr></thead><tbody id="perfDetailBody"><tr><td colspan="10" class="empty">Mengambil data…</td></tr></tbody></table></div>
+  <div class="tablewrap perf-table"><table><thead><tr><th>No</th><th>Tanggal Aktivasi</th><th>ASM</th><th>AE / Sales Agent</th><th>Subscription ID</th><th>Service Status</th><th>Order Status</th><th>Plan</th><th>Cluster</th></tr></thead><tbody id="perfDetailBody"><tr><td colspan="9" class="empty">Mengambil data…</td></tr></tbody></table></div>
  </section>
- <div class="note">Semua baris dengan service_activation_date pada bulan berjalan dihitung sebagai penjualan, termasuk service_status Active maupun Non Active. Perbandingan bulan lalu memakai tanggal 1 sampai tanggal batas yang dipilih pada kalender; jika bulan lalu lebih pendek, digunakan tanggal terakhir bulan lalu.</div>
+ <div class="note">Target setiap AE adalah 15 SA per bulan. Semua baris dengan service_activation_date pada bulan berjalan dihitung sebagai SA, termasuk service_status Active maupun Non Active. Daftar AE diambil dari nama AE yang tersedia pada sheet sumber; AE yang sama sekali tidak tercatat pada sheet tidak dapat ditampilkan. Revenue tidak digunakan sebagai indikator performa.</div>
 </div>
 </main>
 
@@ -669,108 +669,99 @@ window.loadPerformance=function(){
 function exportPerformanceWA(){
  if(!perfLoaded||!perfRows.length){alert('Data Performa SA belum tersedia. Silakan refresh terlebih dahulu.');return;}
  const now=new Date(),y=now.getFullYear(),m=now.getMonth(),day=now.getDate();
- const dateInput=$('perfCompareDate');
- const selectedDate=dateInput&&dateInput.value?new Date(dateInput.value+'T12:00:00'):now;
- const compareDay=Math.min(selectedDate.getDate(),new Date(y,m,0).getDate());
  const startNow=new Date(y,m,1),endNow=new Date(y,m,day,23,59,59);
- const startPrev=new Date(y,m-1,1),endPrev=new Date(y,m-1,compareDay,23,59,59);
  const inPeriod=(r,from,to)=>r.activation>=from&&r.activation<=to;
  const asm=$('perfAsm').value,ae=$('perfAe').value;
- const rows=perfRows.filter(r=>(!asm||r.asm===asm)&&(!ae||r.ae===ae));
- const current=rows.filter(r=>inPeriod(r,startNow,endNow));
- const previous=rows.filter(r=>inPeriod(r,startPrev,endPrev));
- const previousFull=rows.filter(r=>inPeriod(r,startPrev,new Date(y,m,0,23,59,59)));
+ const base=perfRows.filter(r=>(!asm||r.asm===asm)&&(!ae||r.ae===ae));
+ const current=base.filter(r=>inPeriod(r,startNow,endNow));
  const groups={};
- current.forEach(r=>{const k=r.ae||'Nama AE belum tersedia';groups[k]??={asm:r.asm||'ASM belum tersedia',ae:k,count:0};groups[k].count++;});
+ base.forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM belum tersedia')+'||'+r.ae;groups[key]??={asm:r.asm||'—',ae:r.ae,count:0};});
+ current.forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM belum tersedia')+'||'+r.ae;groups[key]??={asm:r.asm||'—',ae:r.ae,count:0};groups[key].count++;});
  const list=Object.values(groups).sort((a,b)=>b.count-a.count||a.ae.localeCompare(b.ae,'id'));
- const total=current.length,prev=previous.length,diff=total-prev,growth=prev?diff/prev*100:(total?100:0);
+ const target=list.length*15,total=current.length,gap=Math.max(0,target-total);
  const elapsed=Math.max(1,day),days=new Date(y,m+1,0).getDate(),runrate=Math.round(total/elapsed*days);
- const prevAll=previousFull.length,projectedGrowth=prevAll?(runrate-prevAll)/prevAll*100:(runrate?100:0);
  const f=n=>Number(n||0).toLocaleString('id-ID');
- const pct=n=>(n>0?'+':'')+n.toLocaleString('id-ID',{maximumFractionDigits:1})+'%';
- const dateFmt=d=>d.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
  let lines=[
- '🔥 *MONITORING PERFORMA SA – MORA REPUBLIC SURABAYA 2*',
+ '🔥 *MONITORING TARGET SA – MORA REPUBLIC SURABAYA 2*',
  '📅 Periode: 1–'+day+' '+now.toLocaleDateString('id-ID',{month:'long',year:'numeric'}),
  asm?'👤 ASM: '+asm:'👥 ASM: Semua ASM',
  ae?'🧑‍💼 AE: '+ae:'🧑‍💼 AE: Semua AE',
  '',
- '📊 *RINGKASAN PENCAPAIAN*',
+ '📊 *RINGKASAN TARGET*',
  '• Total SA bulan ini: *'+f(total)+'*',
- '• SA bulan lalu s.d. '+compareDay+' '+startPrev.toLocaleDateString('id-ID',{month:'short'})+': *'+f(prev)+'*',
- '• Selisih: *'+(diff>0?'+':'')+f(diff)+' SA*',
- '• Pertumbuhan aktual: *'+pct(growth)+'*',
+ '• Jumlah AE dalam data: *'+f(list.length)+'*',
+ '• Target total (15 SA × jumlah AE): *'+f(target)+' SA*',
+ '• Kekurangan menuju target: *'+f(gap)+' SA*',
  '• Proyeksi akhir bulan: *'+f(runrate)+' SA*',
- '• Total SA bulan lalu (full month): *'+f(prevAll)+' SA*',
- '• Pertumbuhan proyeksi: *'+pct(projectedGrowth)+'*',
  '',
- '🏆 *RANKING SELURUH AE*'
+ '🎯 *PENCAPAIAN SETIAP AE (TARGET 15 SA)*'
  ];
- if(list.length){
-   list.forEach((r,i)=>lines.push((i+1)+'. *'+r.ae+'* — '+f(r.count)+' SA'+(asm?'':' | '+r.asm)));
- }else lines.push('_Belum ada aktivasi pada periode ini._');
- lines.push('','📌 _Sumber: Dashboard Monitoring SA Surabaya 2_','⏱️ Dibuat: '+new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}));
- const message=lines.join('\n');
+ if(list.length)list.forEach((r,i)=>lines.push((i+1)+'. *'+r.ae+'* — '+f(r.count)+'/15 SA ('+(r.count/15*100).toLocaleString('id-ID',{maximumFractionDigits:1})+'%) | '+(r.count>=15?'✅ Target tercapai':'Sisa '+f(15-r.count)+' SA')+(asm?'':' | '+r.asm)));
+ else lines.push('_Belum ada AE yang teridentifikasi pada data._');
+ lines.push('','📌 _Penilaian berdasarkan jumlah SA. Revenue tidak menjadi indikator target._','⏱️ Dibuat: '+new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}));
+ const message=lines.join('\\n');
  if(navigator.clipboard&&navigator.clipboard.writeText){
-  navigator.clipboard.writeText(message).then(()=>alert('Teks laporan berhasil disalin. Silakan tempel di grup WhatsApp.'),()=>window.prompt('Salin teks laporan berikut:',message));
- }else window.prompt('Salin teks laporan berikut:',message);
+  navigator.clipboard.writeText(message).then(()=>alert('Laporan target SA berhasil disalin. Silakan tempel di grup WhatsApp.'),()=>window.prompt('Salin laporan berikut:',message));
+ }else window.prompt('Salin laporan berikut:',message);
 }
 function renderPerformance(){
  const now=new Date(),y=now.getFullYear(),m=now.getMonth(),day=now.getDate();
  const dateInput=$('perfCompareDate');
  if(dateInput&&!dateInput.value){const localToday=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);dateInput.value=localToday;}
- const selectedDate=dateInput&&dateInput.value?new Date(dateInput.value+'T12:00:00'):now;
- const compareDay=Math.min(selectedDate.getDate(),new Date(y,m,0).getDate());
  const startNow=new Date(y,m,1),endNow=new Date(y,m,day,23,59,59);
- const startPrev=new Date(y,m-1,1),endPrev=new Date(y,m-1,compareDay,23,59,59);
- $('perfPeriod').textContent=`${perfMonthLabel(now)} • 1–${day} ${now.toLocaleDateString('id-ID',{month:'short'})} dibanding 1–${compareDay} ${startPrev.toLocaleDateString('id-ID',{month:'short'})} (tanggal pembanding dipilih: ${selectedDate.toLocaleDateString('id-ID')})`;
+ const startPrev=new Date(y,m-1,1),endPrev=new Date(y,m-1,Math.min(day,new Date(y,m,0).getDate()),23,59,59);
+ $('perfPeriod').textContent=`${perfMonthLabel(now)} • 1–${day} ${now.toLocaleDateString('id-ID',{month:'short'})} • target setiap AE: 15 SA`;
  const inPeriod=(r,from,to)=>r.activation>=from&&r.activation<=to;
+
  const asmList=[...new Set(perfRows.map(r=>r.asm).filter(Boolean))].sort(),oldAsm=$('perfAsm').value;
  $('perfAsm').innerHTML='<option value="">Semua ASM</option>'+asmList.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
  $('perfAsm').value=asmList.includes(oldAsm)?oldAsm:'';
  const asmFilter=$('perfAsm').value,aeList=[...new Set(perfRows.filter(r=>!asmFilter||r.asm===asmFilter).map(r=>r.ae).filter(Boolean))].sort(),oldAe=$('perfAe').value;
  $('perfAe').innerHTML='<option value="">Semua AE</option>'+aeList.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
  $('perfAe').value=aeList.includes(oldAe)?oldAe:'';
- const a=$('perfAsm').value,e=$('perfAe').value,base=perfRows.filter(r=>(!a||r.asm===a)&&(!e||r.ae===e));
- const cur=base.filter(r=>inPeriod(r,startNow,endNow)),prev=base.filter(r=>inPeriod(r,startPrev,endPrev));
- const prevFull=base.filter(r=>inPeriod(r,startPrev,new Date(y,m,0,23,59,59)));
- const cs=cur.length,ps=prev.length,prevMonthTotal=prevFull.length,diff=cs-ps,growth=ps?diff/ps*100:(cs?100:0);
+
+ const a=$('perfAsm').value,e=$('perfAe').value;
+ const base=perfRows.filter(r=>(!a||r.asm===a)&&(!e||r.ae===e));
+ const cur=base.filter(r=>inPeriod(r,startNow,endNow));
  const daysInMonth=new Date(y,m+1,0).getDate(),elapsedDays=Math.min(day,daysInMonth);
- const projected=elapsedDays?Math.round(cs/elapsedDays*daysInMonth):0;
- const projectedGrowth=prevMonthTotal?(projected-prevMonthTotal)/prevMonthTotal*100:(projected?100:0);
- $('pTotal').textContent=perfFmt(cs);$('pPrev').textContent=perfFmt(ps);$('pDiff').textContent=(diff>0?'+':'')+perfFmt(diff);
+ const projected=elapsedDays?Math.round(cur.length/elapsedDays*daysInMonth):0;
+
+ const aeTargets={};
+ base.forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM tidak tersedia')+'||'+r.ae;aeTargets[key]??={asm:r.asm||'—',ae:r.ae,count:0};});
+ cur.forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM tidak tersedia')+'||'+r.ae;aeTargets[key]??={asm:r.asm||'—',ae:r.ae,count:0};aeTargets[key].count++;});
+ const aeListTarget=Object.values(aeTargets).sort((x,z)=>z.count-x.count||x.ae.localeCompare(z.ae,'id'));
+ const totalTarget=aeListTarget.length*15,remaining=Math.max(0,totalTarget-cur.length);
+ $('pTotal').textContent=perfFmt(cur.length);
+ $('pTargetTotal').textContent=perfFmt(totalTarget);
+ $('pTargetBasis').textContent=`${perfFmt(aeListTarget.length)} AE × 15 SA per AE`;
+ $('pTargetGap').textContent=perfFmt(remaining);
  $('pRunrate').textContent=perfFmt(projected);
- $('pPrevMonthTotal').textContent=perfFmt(prevMonthTotal);
- $('pGrowth').textContent=(growth>0?'+':'')+growth.toLocaleString('id-ID',{maximumFractionDigits:1})+'%';
- $('pProjectedGrowth').textContent=(projectedGrowth>0?'+':'')+projectedGrowth.toLocaleString('id-ID',{maximumFractionDigits:1})+'%';
- $('pRunrateBasis').textContent=`${perfFmt(cs)} aktivasi dalam ${elapsedDays} hari • dibanding total bulan lalu ${perfFmt(prevMonthTotal)} SA`;
- const totalClass=diff>0?'positive':diff<0?'negative':'neutral';
- $('pTotal').className='num '+totalClass;
- $('pDiff').className='num '+totalClass;
- $('pGrowth').className=(growth>0?'positive':growth<0?'negative':'neutral');
- $('pProjectedGrowth').className=(projectedGrowth>0?'positive':projectedGrowth<0?'negative':'neutral');
- // Perbandingan seluruh ASM, tidak terpengaruh filter AE.
+ $('pRunrateBasis').textContent=`Proyeksi ${perfFmt(projected)} SA dari ${perfFmt(cur.length)} SA dalam ${elapsedDays} hari`;
+ $('pTotal').className='num '+(cur.length>=totalTarget?'positive':'neutral');
+ $('pTargetGap').className='num '+(remaining===0?'positive':'negative');
+ $('pRunrate').className='num '+(projected>=totalTarget?'positive':'neutral');
+
+ // Ringkasan per ASM tetap tersedia, tanpa ranking.
  const asmGroups={};
  perfRows.forEach(r=>{if(!r.asm)return;asmGroups[r.asm]??={name:r.asm,cur:0,prev:0};if(inPeriod(r,startNow,endNow))asmGroups[r.asm].cur++;if(inPeriod(r,startPrev,endPrev))asmGroups[r.asm].prev++;});
  const asmData=Object.values(asmGroups).sort((x,z)=>z.cur-x.cur||x.name.localeCompare(z.name,'id'));
  $('perfAsmCompareCount').textContent=asmData.length+' ASM';
  $('perfAsmCompareBody').innerHTML=asmData.length?asmData.map((g,i)=>{const d=g.cur-g.prev,p=g.prev?d/g.prev*100:(g.cur?100:0);return `<tr><td>${i+1}</td><td><b>${esc(g.name)}</b></td><td>${perfFmt(g.cur)}</td><td>${perfFmt(g.prev)}</td><td class="${d>0?'growth-up':d<0?'growth-down':''}">${d>0?'+':''}${perfFmt(d)}</td><td class="${p>0?'growth-up':p<0?'growth-down':''}">${p>0?'+':''}${p.toLocaleString('id-ID',{maximumFractionDigits:1})}%</td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Tidak ada data ASM untuk periode ini.</td></tr>';
- // Filter ASM khusus tabel perbandingan AE.
+
+ // Pencapaian target AE; filter ASM tabel ini terpisah.
  const compareAsms=[...new Set(perfRows.map(r=>r.asm).filter(Boolean))].sort(),oldCompare=$('perfCompareAsm').value;
  $('perfCompareAsm').innerHTML='<option value="">Semua ASM</option>'+compareAsms.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
  $('perfCompareAsm').value=compareAsms.includes(oldCompare)?oldCompare:'';
- const selected=$('perfCompareAsm').value,aeGroups={};
- perfRows.filter(r=>!selected||r.asm===selected).forEach(r=>{const key=(r.asm||'ASM tidak tersedia')+'||'+(r.ae||'Nama AE kosong');aeGroups[key]??={asm:r.asm||'—',ae:r.ae||'Nama AE kosong',cur:0,prev:0};if(inPeriod(r,startNow,endNow))aeGroups[key].cur++;if(inPeriod(r,startPrev,endPrev))aeGroups[key].prev++;});
- const aeData=Object.values(aeGroups).sort((x,z)=>z.cur-x.cur||x.ae.localeCompare(z.ae,'id'));
+ const selected=$('perfCompareAsm').value,compareGroups={};
+ perfRows.filter(r=>!selected||r.asm===selected).forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM tidak tersedia')+'||'+r.ae;compareGroups[key]??={asm:r.asm||'—',ae:r.ae,count:0};});
+ perfRows.filter(r=>(!selected||r.asm===selected)&&inPeriod(r,startNow,endNow)).forEach(r=>{if(!r.ae)return;const key=(r.asm||'ASM tidak tersedia')+'||'+r.ae;compareGroups[key]??={asm:r.asm||'—',ae:r.ae,count:0};compareGroups[key].count++;});
+ const aeData=Object.values(compareGroups).sort((x,z)=>z.count-x.count||x.ae.localeCompare(z.ae,'id'));
  $('perfCompareCount').textContent=aeData.length+' AE';
- $('perfCompareBody').innerHTML=aeData.length?aeData.map((g,i)=>{const d=g.cur-g.prev,p=g.prev?d/g.prev*100:(g.cur?100:0);return `<tr><td>${i+1}</td><td>${esc(g.asm)}</td><td><b>${esc(g.ae)}</b></td><td>${perfFmt(g.cur)}</td><td>${perfFmt(g.prev)}</td><td class="${d>0?'growth-up':d<0?'growth-down':''}">${d>0?'+':''}${perfFmt(d)}</td><td class="${p>0?'growth-up':p<0?'growth-down':''}">${p>0?'+':''}${p.toLocaleString('id-ID',{maximumFractionDigits:1})}%</td></tr>`}).join(''):'<tr><td colspan="7" class="empty">Tidak ada data AE untuk ASM/periode ini.</td></tr>';
- // Ranking mengikuti filter ASM dan AE utama.
- const rankGroups={};cur.forEach(r=>{const key=r.ae||'Nama AE kosong';rankGroups[key]=(rankGroups[key]||0)+1;});
- const top=Object.entries(rankGroups).sort((x,z)=>z[1]-x[1]).slice(0,8);
- $('perfRanking').innerHTML=top.length?top.map(([n,v],i)=>`<div class="rank"><span class="n">${i+1}</span><span class="name">${esc(n)}</span><b>${perfFmt(v)}</b></div>`).join(''):'<div class="empty">Tidak ada data</div>';
- const ag={};cur.forEach(r=>{const k=r.asm||'ASM tidak tersedia';ag[k]=(ag[k]||0)+1});const at=Object.entries(ag).sort((x,z)=>z[1]-x[1]).slice(0,8);$('perfAsmRanking').innerHTML=at.length?at.map(([n,v],i)=>`<div class="rank"><span class="n">${i+1}</span><span class="name">${esc(n)}</span><b>${perfFmt(v)}</b></div>`).join(''):'<div class="empty">Tidak ada data</div>';
- const details=cur.slice().sort((x,z)=>z.activation-x.activation);$('perfDetailCount').textContent=perfFmt(details.length)+' aktivasi';
- $('perfDetailBody').innerHTML=details.length?details.map((r,i)=>`<tr><td>${i+1}</td><td>${fmtDate(r.activation)}</td><td>${esc(r.asm)||'—'}</td><td>${esc(r.ae)||'—'}</td><td>${esc(r.sub)||'—'}</td><td>${esc(r.service)||'—'}</td><td>${esc(r.order)||'—'}</td><td>${esc(r.plan)||'—'}</td><td>${esc(r.cluster)||'—'}</td><td>${perfMoney(r.revenue)}</td></tr>`).join(''):'<tr><td colspan="10" class="empty">Belum ada aktivasi bulan ini.</td></tr>';
+ $('perfCompareBody').innerHTML=aeData.length?aeData.map((g,i)=>{const pct=g.count/15*100,remain=Math.max(0,15-g.count),done=g.count>=15;return `<tr><td>${i+1}</td><td>${esc(g.asm)}</td><td><b>${esc(g.ae)}</b></td><td>15</td><td><b>${perfFmt(g.count)}</b></td><td>${pct.toLocaleString('id-ID',{maximumFractionDigits:1})}%</td><td>${perfFmt(remain)}</td><td><span class="pill ${done?'p1':'p2'}">${done?'Target tercapai':'Belum tercapai'}</span></td></tr>`}).join(''):'<tr><td colspan="8" class="empty">Tidak ada data AE untuk ASM/periode ini.</td></tr>';
+
+ const details=cur.slice().sort((x,z)=>z.activation-x.activation);
+ $('perfDetailCount').textContent=perfFmt(details.length)+' aktivasi';
+ $('perfDetailBody').innerHTML=details.length?details.map((r,i)=>`<tr><td>${i+1}</td><td>${fmtDate(r.activation)}</td><td>${esc(r.asm)||'—'}</td><td>${esc(r.ae)||'—'}</td><td>${esc(r.sub)||'—'}</td><td>${esc(r.service)||'—'}</td><td>${esc(r.order)||'—'}</td><td>${esc(r.plan)||'—'}</td><td>${esc(r.cluster)||'—'}</td></tr>`).join(''):'<tr><td colspan="9" class="empty">Belum ada aktivasi bulan ini.</td></tr>';
 }
 $('perfAsm').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
 $('perfAe').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
