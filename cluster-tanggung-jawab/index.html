@@ -268,7 +268,7 @@ function exportWhatsApp(){
  if(!data.length){alert('Tidak ada data cluster sesuai filter ASM/AE.');return;}
  const belowCount=data.filter(r=>num(r['Total Visit MTD'])<target).length;
  const groups=new Map();
- data.forEach(r=>{const key=label(r.AE)||'AE BELUM DITUGASKAN';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r)});
+ data.forEach(r=>{const key=(label(r.AE)||'AE BELUM DITUGASKAN').replace(/[.\s]+$/,'');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r)});
  const notMarked=data.filter(r=>visitYesterdayStatus(r,previousSnapshot)==='NOT_MARK_IN');
  const needsCheck=data.filter(r=>visitYesterdayStatus(r,previousSnapshot)==='CHECK_DATA');
  const dateText=now.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
@@ -297,7 +297,7 @@ function exportWhatsApp(){
  }
  lines.push('');
  for(const [aeName,items] of groups){
-  lines.push('*AE: '+aeName+'*');
+  lines.push('*AE: '+aeName.replace(/[.\s]+$/,'')+'*');
   for(const r of items){
    const visit=num(r['Total Visit MTD']);
    const status=visit>=target?'TERCAPAI':'BELUM TARGET';
@@ -311,7 +311,7 @@ function exportWhatsApp(){
  }
  lines.push('_Status MARK IN KEMARIN dibandingkan dari perubahan Total Visit MTD terhadap snapshot hari sebelumnya di browser ini. Urutan setiap AE: TIDAK MARK IN KEMARIN paling atas, kemudian cluster BELUM TARGET._');
  lines.push('_MoraRepublic · Surabaya 2_');
- const message=lines.join('\\n');
+ const message=lines.join('\n');
  $('waReportText').value=message;
  $('waModal').classList.add('open');
  $('waReportText').focus();
