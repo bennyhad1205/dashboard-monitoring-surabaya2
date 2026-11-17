@@ -40,7 +40,7 @@ h1{font-size:clamp(20px,3vw,30px);margin:0;letter-spacing:.4px}.eyebrow{color:#e
 .perf-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 16px}
 .perf-title{font-size:18px;font-weight:850}.perf-sub{font-size:12px;color:var(--muted);margin-top:4px}
 .perf-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:16px}
-.perf-kpi{padding:17px}.perf-kpi .label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.7px}.perf-kpi .num{font-size:27px;font-weight:850;margin-top:8px}.perf-kpi .num.positive{color:#16a34a}.perf-kpi .num.negative{color:#dc2626}.perf-kpi .num.neutral{color:var(--ink)}
+.perf-kpi{padding:17px}.perf-kpi .label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.7px}.perf-date-pick{margin-top:12px;display:flex;flex-direction:column;gap:5px}.perf-date-pick label{font-size:9px;font-weight:800;letter-spacing:.5px;color:#c5bba9}.perf-date-pick input{width:100%;max-width:190px;min-height:32px;padding:5px 8px;border-radius:8px;border:1px solid #454c58;background:#11151b;color:#f4f1e9;font:inherit;font-size:12px}.perf-date-pick small{font-size:10px;color:#a9adb5}.perf-kpi .num{font-size:27px;font-weight:850;margin-top:8px}.perf-kpi .num.positive{color:#16a34a}.perf-kpi .num.negative{color:#dc2626}.perf-kpi .num.neutral{color:var(--ink)}
 .perf-filters{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;margin-bottom:16px}
 .perf-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-bottom:16px}
  .perf-table{overflow:auto;max-height:560px}.perf-table table{min-width:760px}
@@ -402,14 +402,13 @@ tbody tr:hover{background:#202b36!important}
   <div class="field"><label>PAKET / PLAN</label><select id="perfPlan"><option value="">Semua Paket</option></select></div>
  </section>
  <section class="perf-kpis">
-  <div class="card perf-kpi"><div class="label">SA BULAN INI vs BULAN LALU (MTD)</div><div class="num" id="pTotal">—</div><div class="perf-sub" id="pMtdCompare">Membandingkan periode yang sama</div><div class="perf-sub" id="pMtdBasis"></div></div>
-  <div class="card perf-kpi"><div class="label">RUNRATE EOM vs BULAN LALU</div><div class="num" id="pRunrate">—</div><div class="perf-sub" id="pRunrateCompare">Proyeksi akhir bulan</div><div class="perf-sub" id="pRunrateBasis"></div></div>
+  <div class="card perf-kpi"><div class="label">SA BULAN INI vs BULAN LALU (MTD)</div><div class="num" id="pTotal">—</div><div class="perf-sub" id="pMtdCompare">Membandingkan periode yang sama</div><div class="perf-sub" id="pMtdBasis"></div><div class="perf-date-pick"><label for="perfCompareDate">TANGGAL PEMBANDING BULAN LALU</label><input id="perfCompareDate" type="date" aria-label="Pilih tanggal pembanding bulan lalu"><small id="perfCompareHint">Pilih tanggal di bulan lalu</small></div></div>
+  <div class="card perf-kpi"><div class="label">RUNRATE EOM vs BULAN LALU</div><div class="num" id="pRunrate">—</div><div class="perf-sub" id="pRunrateCompare">Proyeksi akhir bulan</div><div class="perf-sub" id="pRunrateBasis"></div><div class="perf-date-pick"><label for="perfCommitDate">TANGGAL KOMITMEN RUNRATE</label><input id="perfCommitDate" type="date" aria-label="Pilih tanggal komitmen runrate"><small id="perfCommitHint">Target SA harian untuk mengejar runrate bulan lalu</small></div></div>
   <div class="card perf-kpi"><div class="label">RATA-RATA SA / HARI</div><div class="num" id="pAverage">—</div><div class="perf-sub" id="pBestDay">Hari tertinggi: —</div></div>
   <div class="card perf-kpi"><div class="label">EST. REVENUE BEFORE TAX</div><div class="num" id="pRevenue">—</div><div class="perf-sub" id="pRevenueBasis">Berdasarkan aktivasi bulan ini</div></div>
   <div class="card perf-kpi"><div class="label">TOP ASM BULAN INI</div><div class="num" id="pTopAsmName">—</div><div class="perf-sub" id="pTopAsmCount">— SA</div></div>
   <div class="card perf-kpi"><div class="label">TOP AE BULAN INI</div><div class="num" id="pTopAeName">—</div><div class="perf-sub" id="pTopAeCount">— SA</div></div>
  </section>
- <div class="field" style="display:none"><input id="perfCompareDate" type="date"></div>
  <section class="card panel" style="margin-bottom:16px">
    <h3>Standar Pencapaian AE</h3>
    <div class="perf-sub" style="font-size:13px;line-height:1.7">Target setiap AE adalah <b style="color:#e7bd62">15 SA per bulan</b>. Pemantauan difokuskan pada jumlah SA, persentase pencapaian, dan sisa SA menuju target. Revenue tidak digunakan sebagai indikator penilaian performa.</div>
@@ -720,12 +719,35 @@ function exportPerformanceWA(){
 function renderPerformance(){
  const now=new Date(),y=now.getFullYear(),m=now.getMonth(),day=now.getDate();
  const dateInput=$('perfCompareDate');
- if(dateInput&&!dateInput.value){const localToday=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);dateInput.value=localToday;}
- const selectedDate=dateInput&&dateInput.value?new Date(dateInput.value+'T12:00:00'):now;
- const compareDay=Math.min(selectedDate.getDate(),new Date(y,m,0).getDate());
+ const prevFirst=new Date(y,m-1,1),prevLast=new Date(y,m,0);
+ const toLocalISO=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ const defaultCompare=new Date(y,m-1,Math.min(day,prevLast.getDate()));
+ if(dateInput){
+  dateInput.min=toLocalISO(prevFirst);dateInput.max=toLocalISO(prevLast);
+  if(!dateInput.value)dateInput.value=toLocalISO(defaultCompare);
+  let chosen=new Date(dateInput.value+'T12:00:00');
+  if(Number.isNaN(chosen.getTime())||chosen<prevFirst||chosen>prevLast){dateInput.value=toLocalISO(defaultCompare);chosen=defaultCompare;}
+ }
+ const selectedDate=dateInput&&dateInput.value?new Date(dateInput.value+'T12:00:00'):defaultCompare;
+ const compareDay=selectedDate.getDate();
+ const commitInput=$('perfCommitDate');
+ const monthLast=new Date(y,m+1,0);
+ const defaultCommit=new Date(y,m,monthLast.getDate());
+ if(commitInput){
+  commitInput.min=toLocalISO(new Date(y,m,day));
+  commitInput.max=toLocalISO(monthLast);
+  if(!commitInput.value)commitInput.value=toLocalISO(defaultCommit);
+  let chosenCommit=new Date(commitInput.value+'T12:00:00');
+  if(Number.isNaN(chosenCommit.getTime())||chosenCommit<new Date(y,m,day)||chosenCommit>monthLast){
+   commitInput.value=toLocalISO(defaultCommit);chosenCommit=defaultCommit;
+  }
+ }
+ const commitDate=commitInput&&commitInput.value?new Date(commitInput.value+'T12:00:00'):defaultCommit;
+ const commitDay=commitDate.getDate();
  const startNow=new Date(y,m,1),endNow=new Date(y,m,day,23,59,59);
  const startPrev=new Date(y,m-1,1),endPrev=new Date(y,m-1,compareDay,23,59,59);
- $('perfPeriod').textContent=`${perfMonthLabel(now)} • 1–${day} ${now.toLocaleDateString('id-ID',{month:'short'})} dibanding 1–${compareDay} ${startPrev.toLocaleDateString('id-ID',{month:'short'})} (tanggal pembanding dipilih: ${selectedDate.toLocaleDateString('id-ID')})`;
+ $('perfCompareHint').textContent=`Dipilih: ${selectedDate.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}`;
+ $('perfPeriod').textContent=`${perfMonthLabel(now)} • 1–${day} ${now.toLocaleDateString('id-ID',{month:'short'})} dibanding 1–${compareDay} ${startPrev.toLocaleDateString('id-ID',{month:'short'})}`;
  const inPeriod=(r,from,to)=>r.activation>=from&&r.activation<=to;
  const asmList=[...new Set(perfRows.map(r=>r.asm).filter(Boolean))].sort(),oldAsm=$('perfAsm').value;
  $('perfAsm').innerHTML='<option value="">Semua ASM</option>'+asmList.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
@@ -753,7 +775,11 @@ function renderPerformance(){
  $('pMtdBasis').textContent=`${growth>0?'+':''}${growth.toLocaleString('id-ID',{maximumFractionDigits:1})}% dibanding bulan lalu`;
  $('pRunrate').textContent=perfFmt(projected);
  $('pRunrateCompare').textContent=`vs ${perfFmt(prevMonthTotal)} (bulan lalu EOM)`;
- $('pRunrateBasis').textContent=`Kejar harian: ${((prevMonthTotal-projected)>0?(prevMonthTotal-projected)/(daysInMonth-elapsedDays||1):0).toLocaleString('id-ID',{maximumFractionDigits:1})} SA/hari`;
+ const targetByCommit=prevMonthTotal*commitDay/daysInMonth;
+ const remainingDays=Math.max(1,commitDay-day+1);
+ const dailyCommit=Math.max(0,(targetByCommit-cs)/remainingDays);
+ $('pRunrateBasis').textContent=`Target kejar: ${dailyCommit.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2})} SA/hari`;
+ $('perfCommitHint').textContent=`Target MTD tgl ${commitDay}: ${perfFmt(Math.ceil(targetByCommit))} SA • ${remainingDays} hari dihitung`;
  $('pAverage').textContent=avg.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1});
  $('pBestDay').textContent=best?`Tertinggi: ${new Date(best[0]+'T12:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'})} (${best[1]} SA)`:'Belum ada aktivasi';
  $('pRevenue').textContent='Rp '+Math.round(revenue).toLocaleString('id-ID');
@@ -788,6 +814,7 @@ $('perfAe').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
 $('perfPlan').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
 $('perfCompareAsm').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
 $('perfCompareDate').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
+$('perfCommitDate').addEventListener('change',()=>{if(perfLoaded)renderPerformance()});
 setInterval(()=>{if(perfLoaded && $('performancePane') && !$('performancePane').classList.contains('pane-hidden'))loadPerformance()},300000);
 
 
